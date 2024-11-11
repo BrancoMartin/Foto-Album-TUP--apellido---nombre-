@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% if form.id.data %}Editar Foto{% else %}Agregar Nueva Foto{% endif %}</h2>
+    <form method="POST" action="{{ url_for('edit_photo', id=form.id.data) if form.id.data else url_for('add_photo') }}">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}<br>
+            {% for error in form.title.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(rows=4) }}<br>
+        </p>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image(size=64) }}<br>
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}
+
